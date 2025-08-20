@@ -1,8 +1,12 @@
+/**
+ * Created by ROVENSKIY D.A. on 20.08.2025
+ */
 import {Button, Form, Input, Typography} from 'antd';
+import {useCallback} from 'react';
 import {useNavigate} from 'react-router';
 import {redirect} from 'react-router';
 
-import {createAccessToken, getToken, saveToken} from '@/services/auth';
+import {getToken, setToken} from '@/services/auth';
 
 export function loader() {
     if (getToken()) {
@@ -17,14 +21,18 @@ const {Title} = Typography;
 export function Component() {
     const navigate = useNavigate();
 
-    async function handleFinish(values: {username: string; password: string}) {
-        const token = await createAccessToken(
-            values.username.trim(),
-            values.password,
-        );
-        saveToken(token);
-        navigate('/');
-    }
+    const handleLogin = useCallback(
+        (values: {username: string; password: string}) => {
+            const username = values.username.trim();
+            const password = values.password;
+            const isAdmin = username === 'admin' && password === '123456';
+
+            setToken({username, role: isAdmin ? 'admin' : 'user'});
+
+            navigate('/');
+        },
+        [navigate],
+    );
 
     return (
         <div
@@ -42,7 +50,7 @@ export function Component() {
 
             <Form
                 layout="vertical"
-                onFinish={handleFinish}
+                onFinish={handleLogin}
                 autoComplete="on"
                 requiredMark={false}
                 initialValues={{username: '', password: ''}}
@@ -51,10 +59,7 @@ export function Component() {
                 <Item
                     label="Логин"
                     name="username"
-                    rules={[
-                        {required: true, message: 'Введите логин'},
-                        {min: 3, message: 'Минимум 3 символа'},
-                    ]}
+                    rules={[{required: true, message: 'Введите логин'}]}
                 >
                     <Input
                         placeholder="Введите логин"
@@ -66,10 +71,7 @@ export function Component() {
                 <Item
                     label="Пароль"
                     name="password"
-                    rules={[
-                        {required: true, message: 'Введите пароль'},
-                        {min: 6, message: 'Минимум 6 символов'},
-                    ]}
+                    rules={[{required: true, message: 'Введите пароль'}]}
                 >
                     <Input.Password
                         placeholder="Введите пароль"
