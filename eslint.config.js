@@ -53,7 +53,7 @@ export default tseslint.config(
             ],
 
             'react-refresh/only-export-components': [
-                2,
+                1,
                 {allowConstantExport: true},
             ],
 
