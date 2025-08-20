@@ -15,3 +15,7 @@ export function getToken(): Token | null {
         return null;
     }
 }
+
+export function deleteToken(): void {
+    localStorage.removeItem(TOKEN_KEY);
+}
