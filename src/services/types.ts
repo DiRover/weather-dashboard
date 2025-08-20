@@ -5,9 +5,8 @@ export interface UserFormValues {
     password: string;
 }
 
-export interface UserDTO {
+export interface UserDTO extends UserFormValues {
     id: string;
-    username: string;
     role: Role;
 }
 

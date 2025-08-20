@@ -6,7 +6,10 @@ import {useCallback} from 'react';
 import {useNavigate} from 'react-router';
 import {redirect} from 'react-router';
 
+import type {UserDTO} from '@/services/types.ts';
+
 import {getToken, setToken} from '@/services/auth';
+import {getUsers} from '@/services/users.ts';
 
 export function loader() {
     if (getToken()) {
@@ -25,11 +28,29 @@ export function Component() {
         (values: {username: string; password: string}) => {
             const username = values.username.trim();
             const password = values.password;
-            const isAdmin = username === 'admin' && password === '123456';
 
-            setToken({username, role: isAdmin ? 'admin' : 'user'});
+            // устанавливаем админа
+            if (username === 'admin' && password === '123456') {
+                setToken({username, role: 'admin'});
+                navigate('/');
+                return;
+            }
 
-            navigate('/');
+            // если введённые данные не как у админа, то выполняем валидацию
+            const users: UserDTO[] = getUsers();
+            //находим юзера в общем списке
+            const match = users.find(
+                user =>
+                    user.username === username && user.password === password,
+            );
+
+            //если юзер с такими логин/пароль существует
+            if (match) {
+                setToken({username, role: 'user'});
+                navigate('/');
+            } else {
+                //если не существует
+            }
         },
         [navigate],
     );
