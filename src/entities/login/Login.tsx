@@ -1,7 +1,7 @@
 /**
  * Created by ROVENSKIY D.A. on 20.08.2025
  */
-import {Button, Form, Input, Typography} from 'antd';
+import {Button, Form, Input, Typography, notification} from 'antd';
 import {useCallback} from 'react';
 import {useNavigate} from 'react-router';
 import {redirect} from 'react-router';
@@ -50,6 +50,11 @@ export function Component() {
                 navigate('/');
             } else {
                 //если не существует
+                notification.error({
+                    message: 'Ошибка входа',
+                    description: 'Неверный логин или пароль',
+                    placement: 'bottomRight',
+                });
             }
         },
         [navigate],
