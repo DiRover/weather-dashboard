@@ -2,7 +2,7 @@
  * Created by ROVENSKIY D.A. on 20.08.2025
  */
 import {Button, Space, Table, Typography} from 'antd';
-import {useMemo} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {redirect} from 'react-router';
 
 import type {UserDTO} from '@/services/types.ts';
@@ -24,9 +24,21 @@ export function loader() {
 
 const {Title} = Typography;
 
-const usersList = getUsers();
-
 export function Component() {
+    const [users, setUsers] = useState<UserDTO[]>(() => getUsers());
+
+    const refreshUsers = useCallback(() => {
+        setUsers(getUsers());
+    }, []);
+
+    const handleDelete = useCallback(
+        (id: string) => {
+            deleteUser(id);
+            refreshUsers();
+        },
+        [refreshUsers],
+    );
+
     const columns = useMemo(
         () => [
             {title: 'Логин', dataIndex: 'username', key: 'username'},
@@ -39,7 +51,7 @@ export function Component() {
                         <Button
                             danger
                             onClick={() => {
-                                deleteUser(record.id);
+                                handleDelete(record.id);
                             }}
                         >
                             Удалить
@@ -48,7 +60,7 @@ export function Component() {
                 ),
             },
         ],
-        [],
+        [handleDelete],
     );
 
     return (
@@ -57,11 +69,11 @@ export function Component() {
                 Пользователи
             </Title>
 
-            <UserForm />
+            <UserForm onCreated={refreshUsers} />
 
             <Table
                 rowKey="id"
-                dataSource={usersList}
+                dataSource={users}
                 columns={columns}
                 pagination={{pageSize: 10}}
             />

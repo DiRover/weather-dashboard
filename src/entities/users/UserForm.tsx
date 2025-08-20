@@ -10,11 +10,21 @@ import {createUser} from '@/services/users.ts';
 
 const {Item} = Form;
 
-const UserForm = memo(() => {
-    const handleCreateUser = useCallback((values: UserFormValues) => {
-        const {username, password} = values;
-        createUser({username: username.trim(), password});
-    }, []);
+interface UserFormProps {
+    onCreated: () => void;
+}
+
+const {Password} = Input;
+
+const UserForm = memo(({onCreated}: UserFormProps) => {
+    const handleCreateUser = useCallback(
+        (values: UserFormValues) => {
+            const {username, password} = values;
+            createUser({username: username.trim(), password});
+            onCreated();
+        },
+        [onCreated],
+    );
 
     return (
         <Form
@@ -31,10 +41,10 @@ const UserForm = memo(() => {
 
             <Item
                 name="password"
-                rules={[{required: true, message: 'Введите пароль'}, {min: 6}]}
+                rules={[{required: true, message: 'Введите пароль'}, {min: 3}]}
             >
-                <Input
-                    autoComplete="password"
+                <Password
+                    autoComplete="new-password"
                     placeholder="Пароль"
                     allowClear
                 />
