@@ -27,11 +27,7 @@ const UserForm = memo(({onCreated}: UserFormProps) => {
     );
 
     return (
-        <Form
-            layout="inline"
-            onFinish={handleCreateUser}
-            style={{marginBottom: 16}}
-        >
+        <Form layout="inline" onFinish={handleCreateUser} className="mb-4">
             <Item
                 name="username"
                 rules={[{required: true, message: 'Введите логин'}, {min: 3}]}

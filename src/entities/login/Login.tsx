@@ -61,16 +61,8 @@ export function Component() {
     );
 
     return (
-        <div
-            style={{
-                maxWidth: 360,
-                margin: '72px auto',
-                padding: 24,
-                border: '1px solid #e5e7eb',
-                borderRadius: 8,
-            }}
-        >
-            <Title level={3} style={{marginTop: 0}}>
+        <div className="mx-auto my-18 max-w-[360px] rounded-lg border border-gray-200 p-6">
+            <Title level={3} className="mt-0">
                 Вход
             </Title>
 
@@ -105,7 +97,7 @@ export function Component() {
                     />
                 </Item>
 
-                <Item style={{marginBottom: 0}}>
+                <Item className="mb-0">
                     <Button type="primary" htmlType="submit" block>
                         Войти
                     </Button>

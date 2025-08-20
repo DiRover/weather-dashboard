@@ -64,8 +64,8 @@ export function Component() {
     );
 
     return (
-        <div style={{maxWidth: 720, margin: '48px auto', padding: 24}}>
-            <Title level={3} style={{marginTop: 0}}>
+        <div className="mx-auto my-12 max-w-[720px] p-6">
+            <Title level={3} className="mt-0">
                 Пользователи
             </Title>
 

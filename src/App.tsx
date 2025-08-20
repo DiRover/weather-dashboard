@@ -23,11 +23,11 @@ export function Component() {
     }, [navigate]);
 
     return (
-        <div style={{maxWidth: 640, margin: '72px auto', padding: 24}}>
-            <Typography.Title level={3} style={{marginTop: 0}}>
+        <div className="mx-auto my-18 max-w-2xl p-6">
+            <Typography.Title level={3} className="mt-0">
                 Главная
             </Typography.Title>
-            <div style={{display: 'flex', gap: 12}}>
+            <div className="flex gap-3">
                 <Link to="/admin/users" className="ant-btn ant-btn-primary">
                     Пользователи
                 </Link>
