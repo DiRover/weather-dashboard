@@ -61,7 +61,7 @@ export function Component() {
     );
 
     return (
-        <div className="w-2/5">
+        <div className="flex min-h-screen w-1/5 flex-col place-content-center">
             <Title level={3}>Вход</Title>
 
             <Form
