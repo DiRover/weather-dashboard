@@ -4,7 +4,7 @@
 import type {ColumnsType} from 'antd/es/table';
 
 import {ArrowLeftOutlined} from '@ant-design/icons';
-import {Button, Space, Table, Typography} from 'antd';
+import {Button, Modal, Space, Table, Typography} from 'antd';
 import {useCallback, useMemo, useState} from 'react';
 import {redirect, useNavigate} from 'react-router';
 
@@ -40,9 +40,18 @@ export function Component() {
     }, [navigate]);
 
     const handleDelete = useCallback(
-        (id: string) => {
-            deleteUser(id);
-            refreshUsers();
+        (user: UserDTO) => {
+            Modal.confirm({
+                title: 'Подтверждение удаления',
+                content: `Вы уверены, что хотите удалить пользователя "${user.username}"?`,
+                okText: 'Удалить',
+                cancelText: 'Отмена',
+                okType: 'danger',
+                onOk: () => {
+                    deleteUser(user.id);
+                    refreshUsers();
+                },
+            });
         },
         [refreshUsers],
     );
@@ -60,7 +69,7 @@ export function Component() {
                         <Button
                             danger
                             onClick={() => {
-                                handleDelete(record.id);
+                                handleDelete(record);
                             }}
                         >
                             Удалить
