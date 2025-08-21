@@ -27,7 +27,7 @@ const UserForm = memo(({onCreated}: UserFormProps) => {
     );
 
     return (
-        <Form layout="inline" onFinish={handleCreateUser} className="">
+        <Form onFinish={handleCreateUser} className="flex flex-col">
             <Item
                 name="username"
                 rules={[{required: true, message: 'Введите логин'}, {min: 3}]}
@@ -46,7 +46,7 @@ const UserForm = memo(({onCreated}: UserFormProps) => {
                 />
             </Item>
             <Item>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" block>
                     Добавить пользователя
                 </Button>
             </Item>
