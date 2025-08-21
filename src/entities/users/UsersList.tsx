@@ -64,7 +64,7 @@ export function Component() {
     );
 
     return (
-        <div className="mx-auto my-12 max-w-[720px] p-6">
+        <div className="">
             <Title level={3} className="mt-0">
                 Пользователи
             </Title>

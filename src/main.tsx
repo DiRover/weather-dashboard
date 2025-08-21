@@ -6,6 +6,7 @@ import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import {createBrowserRouter, RouterProvider} from 'react-router';
 
+import PageWrapper from '@/components/PageWrapper.tsx';
 import {routes} from '@/routes/routes.tsx';
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -20,7 +21,9 @@ root.render(
             theme={{token: {colorPrimary: '#1677ff'}}}
         >
             <AntdApp>
-                <RouterProvider router={router} />
+                <PageWrapper>
+                    <RouterProvider router={router} />
+                </PageWrapper>
             </AntdApp>
         </ConfigProvider>
     </StrictMode>,

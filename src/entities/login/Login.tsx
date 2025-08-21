@@ -61,10 +61,8 @@ export function Component() {
     );
 
     return (
-        <div className="mx-auto my-18 max-w-[360px] rounded-lg border border-gray-200 p-6">
-            <Title level={3} className="mt-0">
-                Вход
-            </Title>
+        <div className="w-2/5">
+            <Title level={3}>Вход</Title>
 
             <Form
                 layout="vertical"

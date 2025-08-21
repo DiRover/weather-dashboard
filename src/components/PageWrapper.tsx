@@ -6,7 +6,9 @@ import type {PropsWithChildren} from 'react';
 import {memo} from 'react';
 
 const PageWrapper = memo<PropsWithChildren>(({children}) => (
-    <div className="flex items-center justify-center">{children}</div>
+    <div className="flex min-h-screen w-full flex-col items-center justify-center p-4">
+        {children}
+    </div>
 ));
 
 export default PageWrapper;
