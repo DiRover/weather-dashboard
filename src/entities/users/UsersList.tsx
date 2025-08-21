@@ -3,10 +3,9 @@
  */
 import type {ColumnsType} from 'antd/es/table';
 
-import {ArrowLeftOutlined} from '@ant-design/icons';
 import {Button, Modal, Space, Table, Typography} from 'antd';
 import {useCallback, useMemo, useState} from 'react';
-import {redirect, useNavigate} from 'react-router';
+import {redirect} from 'react-router';
 
 import type {UserDTO} from '@/services/types.ts';
 
@@ -29,15 +28,10 @@ const {Title} = Typography;
 
 export function Component() {
     const [users, setUsers] = useState<UserDTO[]>(() => getUsers());
-    const navigate = useNavigate();
 
     const refreshUsers = useCallback(() => {
         setUsers(getUsers());
     }, []);
-
-    const handleGoBack = useCallback(() => {
-        navigate(-1);
-    }, [navigate]);
 
     const handleDelete = useCallback(
         (user: UserDTO) => {
@@ -83,17 +77,9 @@ export function Component() {
 
     return (
         <>
-            <div className="mb-4 flex items-center gap-4 self-start">
-                <Button
-                    icon={<ArrowLeftOutlined />}
-                    onClick={handleGoBack}
-                    type="text"
-                    size="large"
-                />
-                <Title level={3} className="!m-0">
-                    Пользователи
-                </Title>
-            </div>
+            <Title level={3} className="self-start">
+                Пользователи
+            </Title>
 
             <div className="grid w-full grid-cols-6 gap-4">
                 <UserForm onCreated={refreshUsers} />
