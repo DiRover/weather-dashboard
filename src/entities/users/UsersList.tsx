@@ -4,7 +4,7 @@
 import type {ColumnsType} from 'antd/es/table';
 
 import {Button, Modal, Space, Table, Typography} from 'antd';
-import {useCallback, useMemo, useState} from 'react';
+import {memo, useCallback, useMemo, useState} from 'react';
 import {redirect} from 'react-router';
 
 import type {UserDTO} from '@/services/types.ts';
@@ -26,7 +26,7 @@ export function loader() {
 
 const {Title} = Typography;
 
-export function Component() {
+export const Component = memo(() => {
     const [users, setUsers] = useState<UserDTO[]>(() => getUsers());
 
     const refreshUsers = useCallback(() => {
@@ -95,4 +95,4 @@ export function Component() {
             </div>
         </>
     );
-}
+});

@@ -2,7 +2,7 @@
  * Created by ROVENSKIY D.A. on 20.08.2025
  */
 import {Button, Form, Input, Typography, notification} from 'antd';
-import {useCallback} from 'react';
+import {memo, useCallback} from 'react';
 import {useNavigate} from 'react-router';
 import {redirect} from 'react-router';
 
@@ -21,7 +21,7 @@ export function loader() {
 const {Item} = Form;
 const {Title} = Typography;
 
-export function Component() {
+export const Component = memo(() => {
     const navigate = useNavigate();
 
     const handleLogin = useCallback(
@@ -103,4 +103,4 @@ export function Component() {
             </Form>
         </div>
     );
-}
+});
