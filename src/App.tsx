@@ -7,6 +7,8 @@ import {Link, redirect, useNavigate} from 'react-router';
 
 import {deleteToken, getToken} from '@/services/auth';
 
+import PageWrapper from './components/PageWrapper.tsx';
+
 export function loader() {
     if (!getToken()) {
         throw redirect('/login');
@@ -23,16 +25,16 @@ export function Component() {
     }, [navigate]);
 
     return (
-        <div className="mx-auto my-18 max-w-2xl p-6">
-            <Typography.Title level={3} className="mt-0">
-                Главная
-            </Typography.Title>
-            <div className="flex gap-3">
-                <Link to="/admin/users" className="ant-btn ant-btn-primary">
-                    Пользователи
-                </Link>
-                <Button onClick={handleLogout}>Выйти</Button>
+        <PageWrapper>
+            <div>
+                <Typography.Title level={3} className="mt-0">
+                    Главная
+                </Typography.Title>
+                <div className="flex gap-3">
+                    <Link to="/admin/users">Пользователи</Link>
+                    <Button onClick={handleLogout}>Выйти</Button>
+                </div>
             </div>
-        </div>
+        </PageWrapper>
     );
 }
