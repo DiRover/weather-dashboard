@@ -17,7 +17,7 @@ export const Component = memo(() => {
         () =>
             token
                 ? routesSections.filter(({handle}) =>
-                      handle.role.includes(token.role),
+                      handle?.role?.includes(token.role),
                   )
                 : [],
         [token],
@@ -43,7 +43,7 @@ export const Component = memo(() => {
                             ].join(' ')
                         }
                     >
-                        {route.handle.title}
+                        {route.handle?.title}
                     </NavLink>
                 ))}
             </div>

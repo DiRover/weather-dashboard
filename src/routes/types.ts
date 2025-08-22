@@ -4,15 +4,15 @@ import type {Role} from '@/helpers/types.ts';
 
 interface Handle {
     title: string;
-    role: Role[];
+    role?: Role[];
 }
 
 type IndexRoute = Omit<IndexRouteObject, 'handle'> & {
-    handle: Handle;
+    handle?: Handle;
 };
 
 type NonIndexRoute = Omit<NonIndexRouteObject, 'handle'> & {
-    handle: Handle;
+    handle?: Handle;
 };
 
 export type RouteFull = IndexRoute | NonIndexRoute;
