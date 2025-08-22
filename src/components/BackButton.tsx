@@ -3,15 +3,20 @@
  */
 import {ArrowLeftOutlined} from '@ant-design/icons';
 import {Button} from 'antd';
-import {memo, useCallback} from 'react';
-import {useNavigate} from 'react-router';
+import {memo, useCallback, useMemo} from 'react';
+import {useLocation, useNavigate} from 'react-router';
 
 const BackButton = memo(() => {
     const navigate = useNavigate();
+    const {pathname} = useLocation();
 
     const handleGoBack = useCallback(() => {
         navigate(-1);
     }, [navigate]);
+
+    const canGoBack = useMemo(() => pathname !== '/', [pathname]);
+
+    if (!canGoBack) return null;
 
     return (
         <Button

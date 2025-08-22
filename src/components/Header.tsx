@@ -17,9 +17,12 @@ const Header = memo(() => {
     }, [navigate]);
 
     return (
-        <header className="flex w-full justify-between border-b border-gray-200 pb-4">
+        <header className="flex h-12 w-full items-center border-b border-gray-200 pb-4">
             <BackButton />
-            <Button onClick={handleLogout}>Выйти</Button>
+
+            <div className="ml-auto">
+                <Button onClick={handleLogout}>Выйти</Button>
+            </div>
         </header>
     );
 });
