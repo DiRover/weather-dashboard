@@ -6,10 +6,10 @@ import type {RouteFull} from '@/routes/types.ts';
 import {commonAccess} from '@/routes/access.ts';
 
 export const weatherGraphSection: RouteFull = {
-    lazy: () => import('@/entities/linear-graph/Page.tsx'),
+    lazy: () => import('@/entities/weather-graph/Page.tsx'),
     path: '/graph',
     handle: {
-        title: 'Линейный график',
+        title: 'Погодные графики',
         role: commonAccess,
     },
 };

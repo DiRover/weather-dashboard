@@ -6,11 +6,11 @@ import {memo, useCallback} from 'react';
 import {useNavigate} from 'react-router';
 import {redirect} from 'react-router';
 
-import type {UserDTO} from '@/services/types.ts';
+import type {UserDTO} from '@/helpers/types.ts';
 
-import {getToken, setToken} from '@/services/auth';
-import {RoleName} from '@/services/types.ts';
-import {getUsers} from '@/services/users.ts';
+import {getToken, setToken} from '@/helpers/auth';
+import {RoleName} from '@/helpers/types.ts';
+import {getUsers} from '@/helpers/users.ts';
 
 export function loader() {
     if (getToken()) {

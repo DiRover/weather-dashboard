@@ -7,12 +7,12 @@ import {Button, Modal, Space, Table, Typography} from 'antd';
 import {memo, useCallback, useMemo, useState} from 'react';
 import {redirect} from 'react-router';
 
-import type {UserDTO} from '@/services/types.ts';
+import type {UserDTO} from '@/helpers/types.ts';
 
 import UserForm from '@/entities/users/UserForm.tsx';
+import {getToken} from '@/helpers/auth';
+import {deleteUser, getUsers} from '@/helpers/users.ts';
 import {adminAccess} from '@/routes/access.ts';
-import {getToken} from '@/services/auth';
-import {deleteUser, getUsers} from '@/services/users.ts';
 
 export function loader() {
     const token = getToken();

@@ -1,4 +1,4 @@
-import type {Token} from '@/services/types.ts';
+import type {Token} from '@/helpers/types.ts';
 
 const TOKEN_KEY = 'auth_token';
 

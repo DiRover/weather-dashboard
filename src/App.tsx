@@ -4,7 +4,7 @@
 import {Outlet, redirect} from 'react-router';
 
 import Header from '@/components/Header';
-import {getToken} from '@/services/auth';
+import {getToken} from '@/helpers/auth';
 
 export function loader() {
     if (!getToken()) {

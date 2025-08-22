@@ -7,7 +7,7 @@ import {adminAccess} from '@/routes/access.ts';
 
 export const adminSection: RouteFull = {
     lazy: () => import('@/entities/users/UsersList.tsx'),
-    index: true,
+    path: 'admin',
     handle: {
         title: 'Пользователи',
         role: adminAccess,

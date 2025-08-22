@@ -1,6 +1,6 @@
 import type {IndexRouteObject, NonIndexRouteObject} from 'react-router';
 
-import type {Role} from '@/services/types.ts';
+import type {Role} from '@/helpers/types.ts';
 
 interface Handle {
     title: string;

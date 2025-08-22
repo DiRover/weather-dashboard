@@ -1,4 +1,4 @@
-import type {UserDTO, UserFormValues} from '@/services/types.ts';
+import type {UserDTO, UserFormValues} from '@/helpers/types.ts';
 
 const USERS_KEY = 'users';
 

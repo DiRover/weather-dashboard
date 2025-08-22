@@ -5,8 +5,8 @@ import {Button} from 'antd';
 import {memo, useCallback} from 'react';
 import {useNavigate} from 'react-router';
 
-import Navigation from '@/components/Navigation.tsx';
-import {deleteToken} from '@/services/auth';
+import BackButton from '@/components/BackButton.tsx';
+import {deleteToken} from '@/helpers/auth';
 
 const Header = memo(() => {
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Header = memo(() => {
 
     return (
         <header className="flex w-full justify-between border-b border-gray-200 pb-4">
-            <Navigation />
+            <BackButton />
             <Button onClick={handleLogout}>Выйти</Button>
         </header>
     );

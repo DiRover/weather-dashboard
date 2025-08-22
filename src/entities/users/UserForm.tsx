@@ -4,9 +4,9 @@
 import {Button, Form, Input} from 'antd';
 import {memo, useCallback} from 'react';
 
-import type {UserFormValues} from '@/services/types.ts';
+import type {UserFormValues} from '@/helpers/types.ts';
 
-import {createUser} from '@/services/users.ts';
+import {createUser} from '@/helpers/users.ts';
 
 const {Item} = Form;
 
