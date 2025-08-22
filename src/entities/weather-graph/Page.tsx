@@ -12,7 +12,7 @@ const {Title} = Typography;
 
 export const Component = memo(() => {
     return (
-        <>
+        <div className="flex w-full flex-auto flex-col gap-y-4 pt-4">
             <Title level={3} className="self-start">
                 Графики погоды
             </Title>
@@ -22,6 +22,6 @@ export const Component = memo(() => {
             )}
 
             <Outlet />
-        </>
+        </div>
     );
 });
