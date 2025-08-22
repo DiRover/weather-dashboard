@@ -5,6 +5,7 @@ import {Button} from 'antd';
 import {memo, useCallback} from 'react';
 import {useNavigate} from 'react-router';
 
+import Navigation from '@/components/Navigation.tsx';
 import {deleteToken} from '@/services/auth';
 
 const Header = memo(() => {
@@ -16,7 +17,8 @@ const Header = memo(() => {
     }, [navigate]);
 
     return (
-        <header className="flex w-full justify-end border-b border-gray-200 p-4">
+        <header className="flex w-full justify-between border-b border-gray-200 pb-4">
+            <Navigation />
             <Button onClick={handleLogout}>Выйти</Button>
         </header>
     );

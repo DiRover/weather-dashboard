@@ -18,9 +18,6 @@ export function loader() {
     if (!token) {
         throw redirect('/login');
     }
-    if (token.role !== 'admin') {
-        throw redirect('/');
-    }
     return null;
 }
 

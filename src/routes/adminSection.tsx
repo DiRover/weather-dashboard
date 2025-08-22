@@ -1,9 +1,15 @@
 /**
  * Created by ROVENSKIY D.A. on 21.08.2025
  */
-import type {RouteObject} from 'react-router';
+import type {RouteFull} from '@/routes/types.ts';
 
-export const adminSection: RouteObject = {
+import {RoleName} from '@/services/types.ts';
+
+export const adminSection: RouteFull = {
     lazy: () => import('@/entities/users/UsersList.tsx'),
     index: true,
+    handle: {
+        title: 'Пользователи',
+        role: [RoleName.ADMIN],
+    },
 };

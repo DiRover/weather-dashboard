@@ -1,4 +1,9 @@
-export type Role = 'admin' | 'user';
+export const RoleName = {
+    ADMIN: 'admin',
+    USER: 'user',
+} as const;
+
+export type Role = (typeof RoleName)[keyof typeof RoleName];
 
 export interface UserFormValues {
     username: string;
