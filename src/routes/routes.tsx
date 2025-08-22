@@ -2,7 +2,7 @@ import type {RouteObject} from 'react-router';
 
 import type {RouteFull} from '@/routes/types.ts';
 
-import ErrorPage from '@/entities/ErrorPage.tsx';
+import ErrorPage from '@/entities/error/ErrorPage.tsx';
 import {adminSection} from '@/routes/adminSection.tsx';
 import {weatherGraphSection} from '@/routes/weatherGraphSection.tsx';
 
