@@ -16,12 +16,17 @@ const ErrorPage = memo(() => {
         navigate(-1);
     }, [navigate]);
 
+    const isRouterError = isRouteErrorResponse(error);
+
     const goHome = useCallback(() => {
-        navigate('/');
-    }, [navigate]);
+        if (isRouterError && error.status === 403) {
+            navigate('/login');
+        } else {
+            navigate('/');
+        }
+    }, [error, isRouterError, navigate]);
 
     // Определяем тип ошибки
-    const isRouterError = isRouteErrorResponse(error);
     const errorObject = useMemo(() => {
         const unknownError = {
             errorMessage: 'Неизвестная ошибка',
