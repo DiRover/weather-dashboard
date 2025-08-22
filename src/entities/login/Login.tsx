@@ -9,6 +9,7 @@ import {redirect} from 'react-router';
 import type {UserDTO} from '@/services/types.ts';
 
 import {getToken, setToken} from '@/services/auth';
+import {RoleName} from '@/services/types.ts';
 import {getUsers} from '@/services/users.ts';
 
 export function loader() {
@@ -30,8 +31,8 @@ export const Component = memo(() => {
             const password = values.password;
 
             // устанавливаем админа
-            if (username === 'admin' && password === '123456') {
-                setToken({username, role: 'admin'});
+            if (username === RoleName.ADMIN && password === '123456') {
+                setToken({username, role: RoleName.ADMIN});
                 navigate('/');
                 return;
             }
@@ -46,7 +47,7 @@ export const Component = memo(() => {
 
             //если юзер с такими логин/пароль существует
             if (match) {
-                setToken({username, role: 'user'});
+                setToken({username, role: match.role});
                 navigate('/');
             } else {
                 //если не существует
