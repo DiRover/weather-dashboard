@@ -3,25 +3,64 @@
  */
 
 import {Button, Typography} from 'antd';
-import {memo, useCallback} from 'react';
-import {useNavigate} from 'react-router';
+import {memo, useCallback, useMemo} from 'react';
+import {useNavigate, useRouteError, isRouteErrorResponse} from 'react-router';
 
 const {Title} = Typography;
 
 const ErrorPage = memo(() => {
     const navigate = useNavigate();
+    const error = useRouteError();
 
     const goBack = useCallback(() => {
         navigate(-1);
     }, [navigate]);
 
-    return (
-        <div className="flex min-h-screen flex-col place-content-center">
-            <Title level={3}>Такой страницы не существует</Title>
+    const goHome = useCallback(() => {
+        navigate('/');
+    }, [navigate]);
 
-            <Button type="primary" onClick={goBack}>
-                Вернуться назад
-            </Button>
+    // Определяем тип ошибки
+    const isRouterError = isRouteErrorResponse(error);
+    const errorObject = useMemo(() => {
+        const unknownError = {
+            errorMessage: 'Неизвестная ошибка',
+            errorStatus: 'unknown',
+        };
+
+        if (isRouterError) {
+            const errorStatus = error.status;
+
+            switch (errorStatus) {
+                case 403:
+                    return {
+                        errorMessage: 'У вас нет прав доступа к этой странице',
+                        errorStatus,
+                    };
+                case 404:
+                    return {
+                        errorMessage: 'Такой страницы не существует',
+                        errorStatus,
+                    };
+            }
+        }
+
+        return unknownError;
+    }, [error, isRouterError]);
+
+    return (
+        <div className="flex min-h-screen flex-col items-center justify-center gap-4 p-4">
+            <Title level={2} className="text-center">
+                {errorObject.errorMessage}
+            </Title>
+
+            <div className="flex gap-2">
+                <Button onClick={goBack}>Вернуться назад</Button>
+                <Button type="primary" onClick={goHome}>
+                    На главную
+                </Button>
+            </div>
+            <p>status: {errorObject.errorStatus}</p>
         </div>
     );
 });

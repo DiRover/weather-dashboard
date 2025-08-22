@@ -3,13 +3,13 @@
  */
 import type {RouteFull} from '@/routes/types.ts';
 
-import {RoleName} from '@/services/types.ts';
+import {adminAccess} from '@/routes/access.ts';
 
 export const adminSection: RouteFull = {
     lazy: () => import('@/entities/users/UsersList.tsx'),
     index: true,
     handle: {
         title: 'Пользователи',
-        role: [RoleName.ADMIN],
+        role: adminAccess,
     },
 };

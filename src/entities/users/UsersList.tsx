@@ -10,6 +10,7 @@ import {redirect} from 'react-router';
 import type {UserDTO} from '@/services/types.ts';
 
 import UserForm from '@/entities/users/UserForm.tsx';
+import {adminAccess} from '@/routes/access.ts';
 import {getToken} from '@/services/auth';
 import {deleteUser, getUsers} from '@/services/users.ts';
 
@@ -17,6 +18,11 @@ export function loader() {
     const token = getToken();
     if (!token) {
         throw redirect('/login');
+    }
+
+    const role = token.role;
+    if (!adminAccess.includes(role)) {
+        throw new Response('Forbidden Error', {status: 403});
     }
     return null;
 }
