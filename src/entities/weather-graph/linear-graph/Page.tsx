@@ -4,19 +4,11 @@
 import type {AxiosResponse} from 'axios';
 
 import {useQuery} from '@tanstack/react-query';
-import {LineChart} from 'echarts/charts';
-import {
-    TooltipComponent,
-    LegendComponent,
-    TitleComponent,
-    GridComponent,
-} from 'echarts/components';
-import * as echarts from 'echarts/core';
-import {LabelLayout} from 'echarts/features';
-import {CanvasRenderer} from 'echarts/renderers';
-import {memo, useEffect, useMemo, useRef} from 'react';
+import {memo, useMemo} from 'react';
 
 import type {WeatherDTO} from '@/entities/weather-graph/type.ts';
+
+import BaseChart from '@/entities/weather-graph/base-chart/BaseChart.tsx';
 
 const params = {
     latitude: 55.7522,
@@ -29,20 +21,7 @@ const params = {
 
 const url = 'https://archive-api.open-meteo.com/v1/archive';
 
-echarts.use([
-    LineChart,
-    GridComponent,
-    TooltipComponent,
-    LegendComponent,
-    TitleComponent,
-    CanvasRenderer,
-    LabelLayout,
-]);
-
 export const Component = memo(() => {
-    const container = useRef<HTMLDivElement | null>(null);
-    const chart = useRef<ReturnType<typeof echarts.init>>(null);
-
     const {data} = useQuery<AxiosResponse<WeatherDTO>>({
         queryKey: [url, params],
     });
@@ -55,20 +34,6 @@ export const Component = memo(() => {
         }),
         [data],
     );
-
-    useEffect(() => {
-        if (container.current && !chart.current) {
-            chart.current = echarts.init(container.current);
-        }
-
-        return () => {
-            if (chart.current) {
-                chart.current.dispose();
-                chart.current = null;
-                container.current = null;
-            }
-        };
-    }, []);
 
     const options = useMemo(
         () => ({
@@ -101,11 +66,5 @@ export const Component = memo(() => {
         [dates, temps, tepUnit],
     );
 
-    useEffect(() => {
-        if (chart.current) {
-            chart.current.setOption(options);
-        }
-    }, [options]);
-
-    return <div ref={container} className="h-96 w-full" />;
+    return <BaseChart options={options} />;
 });
