@@ -36,5 +36,15 @@ export const weatherGraphSection: RouteFull = {
                 title: 'График со скользящей средней',
             },
         },
+        {
+            path: 'temperature-humidity',
+            lazy: () =>
+                import(
+                    '@/entities/weather-graph/temperature-humidity/Page.tsx'
+                ),
+            handle: {
+                title: 'Температура и Влажность',
+            },
+        },
     ],
 };

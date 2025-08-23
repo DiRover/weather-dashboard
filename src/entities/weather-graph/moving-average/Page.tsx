@@ -4,7 +4,7 @@
 import {useQuery} from '@tanstack/react-query';
 import {memo, useMemo} from 'react';
 
-import type {WeatherDTO} from '@/entities/weather-graph/type.ts';
+import type {TemperatureDTO} from '@/entities/weather-graph/type.ts';
 
 import BaseChart from '@/entities/weather-graph/base-chart/BaseChart.tsx';
 
@@ -29,7 +29,7 @@ function movingAverage(data: number[], windowSize: number) {
 }
 
 export const Component = memo(() => {
-    const {data} = useQuery<{data: WeatherDTO}>({
+    const {data} = useQuery<{data: TemperatureDTO}>({
         queryKey: [url, params],
     });
 

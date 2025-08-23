@@ -6,7 +6,7 @@ import type {AxiosResponse} from 'axios';
 import {useQuery} from '@tanstack/react-query';
 import {memo, useMemo} from 'react';
 
-import type {WeatherDTO} from '@/entities/weather-graph/type.ts';
+import type {TemperatureDTO} from '@/entities/weather-graph/type.ts';
 
 import BaseChart from '@/entities/weather-graph/base-chart/BaseChart.tsx';
 
@@ -22,7 +22,7 @@ const params = {
 const url = 'https://archive-api.open-meteo.com/v1/archive';
 
 export const Component = memo(() => {
-    const {data} = useQuery<AxiosResponse<WeatherDTO>>({
+    const {data} = useQuery<AxiosResponse<TemperatureDTO>>({
         queryKey: [url, params],
     });
 

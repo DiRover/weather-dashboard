@@ -1,6 +1,10 @@
-interface DailyUnits {
-    time: string; // всегда "iso8601"
+interface TemperatureDailyUnits {
     temperature_2m_mean: '°C';
+}
+
+interface HourlyUnits {
+    temperature_2m: '°C';
+    relative_humidity_2m: '%';
 }
 
 interface Daily {
@@ -8,14 +12,17 @@ interface Daily {
     temperature_2m_mean: number[]; // массив температур
 }
 
-export interface WeatherDTO {
-    latitude: number;
-    longitude: number;
-    generationtime_ms: number;
-    utc_offset_seconds: number;
-    timezone: string;
-    timezone_abbreviation: string;
-    elevation: number;
-    daily_units: DailyUnits;
+export interface TemperatureDTO {
+    daily_units: TemperatureDailyUnits;
     daily: Daily;
+}
+
+interface Hourly extends Pick<Daily, 'time'> {
+    relative_humidity_2m: number[];
+    temperature_2m: number[];
+}
+
+export interface TemperatureAndHumidityDTO {
+    hourly: Hourly;
+    hourly_units: HourlyUnits;
 }
