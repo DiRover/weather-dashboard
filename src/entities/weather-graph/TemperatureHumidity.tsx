@@ -8,7 +8,7 @@ import {memo, useMemo} from 'react';
 
 import type {TemperatureAndHumidityDTO} from '@/entities/weather-graph/type.ts';
 
-import BaseChart from '@/entities/weather-graph/base-chart/BaseChart.tsx';
+import BaseChart from '@/entities/weather-graph/BaseChart.tsx';
 
 const params = {
     latitude: 55.7522,
@@ -52,7 +52,10 @@ export const Component = memo(() => {
                 type: 'category',
                 data: dates,
                 boundaryGap: false,
-                axisLabel: {rotate: 45},
+                axisLabel: {
+                    rotate: 45,
+                    formatter: (value: string) => value.split('T')[0], // форматирую дату, только в этом запросе со временем приходит
+                },
             },
             yAxis: [
                 {
@@ -75,7 +78,7 @@ export const Component = memo(() => {
                     name: 'Температура',
                     type: 'line',
                     data: temps,
-                    yAxisIndex: 0, // левая ось (температура)
+                    yAxisIndex: 0,
                     smooth: true,
                     showSymbol: false,
                     lineStyle: {width: 2, color: '#5470c6'},
@@ -85,7 +88,7 @@ export const Component = memo(() => {
                     name: 'Влажность',
                     type: 'line',
                     data: humidity,
-                    yAxisIndex: 1, // правая ось (влажность)
+                    yAxisIndex: 1,
                     smooth: true,
                     showSymbol: false,
                     lineStyle: {width: 2, color: '#91cc75'},

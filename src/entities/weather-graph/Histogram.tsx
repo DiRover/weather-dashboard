@@ -9,7 +9,7 @@ import {memo, useMemo} from 'react';
 
 import type {TemperatureDTO} from '@/entities/weather-graph/type.ts';
 
-import BaseChart from '@/entities/weather-graph/base-chart/BaseChart.tsx';
+import BaseChart from '@/entities/weather-graph/BaseChart.tsx';
 
 const params = {
     latitude: 55.7522,

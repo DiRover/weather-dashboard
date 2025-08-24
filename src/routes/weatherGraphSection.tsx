@@ -15,23 +15,21 @@ export const weatherGraphSection: RouteFull = {
     children: [
         {
             index: true,
-            lazy: () =>
-                import('@/entities/weather-graph/linear-graph/Page.tsx'),
+            lazy: () => import('@/entities/weather-graph/LinearGraph.tsx'),
             handle: {
                 title: 'Линейный график',
             },
         },
         {
             path: 'histogram',
-            lazy: () => import('@/entities/weather-graph/histogram/Page.tsx'),
+            lazy: () => import('@/entities/weather-graph/Histogram.tsx'),
             handle: {
                 title: 'Гистограмма',
             },
         },
         {
             path: 'moving-average',
-            lazy: () =>
-                import('@/entities/weather-graph/moving-average/Page.tsx'),
+            lazy: () => import('@/entities/weather-graph/MovingAverage'),
             handle: {
                 title: 'График со скользящей средней',
             },
@@ -39,9 +37,7 @@ export const weatherGraphSection: RouteFull = {
         {
             path: 'temperature-humidity',
             lazy: () =>
-                import(
-                    '@/entities/weather-graph/temperature-humidity/Page.tsx'
-                ),
+                import('@/entities/weather-graph/TemperatureHumidity.tsx'),
             handle: {
                 title: 'Температура и Влажность',
             },
