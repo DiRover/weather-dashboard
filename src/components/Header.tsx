@@ -6,6 +6,7 @@ import {memo, useCallback} from 'react';
 import {useNavigate} from 'react-router';
 
 import BackButton from '@/components/BackButton.tsx';
+import DarkModeButton from '@/components/DarkModeButton.tsx';
 import {deleteToken} from '@/helpers/auth';
 
 const Header = memo(() => {
@@ -17,10 +18,11 @@ const Header = memo(() => {
     }, [navigate]);
 
     return (
-        <header className="flex h-12 w-full items-center border-b border-gray-200 pb-4">
+        <header className="flex h-12 w-full items-center justify-between border-b border-gray-200 px-4 pb-4">
             <BackButton />
 
-            <div className="ml-auto">
+            <div className="flex items-center gap-2">
+                <DarkModeButton />
                 <Button onClick={handleLogout}>Выйти</Button>
             </div>
         </header>
