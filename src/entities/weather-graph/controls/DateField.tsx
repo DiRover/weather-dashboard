@@ -4,9 +4,9 @@
 import type {RangePickerProps} from 'antd/es/date-picker';
 import type {ReactNode} from 'react';
 
-import {Alert, DatePicker} from 'antd';
+import {DatePicker} from 'antd';
 import dayjs from 'dayjs';
-import {useSetAtom} from 'jotai';
+import {useAtom} from 'jotai';
 import {memo, useCallback, useMemo} from 'react';
 
 import {graphAtom} from '@/entities/atoms/graph.ts';
@@ -19,7 +19,7 @@ interface DateFieldProps {
 const {RangePicker} = DatePicker;
 
 const DateField = memo<DateFieldProps>(({graphName, extra}) => {
-    const setParams = useSetAtom(graphAtom(graphName));
+    const [params, setParams] = useAtom(graphAtom(graphName));
     const onChange = useCallback(
         (
             value: Parameters<Required<RangePickerProps>['onChange']>[0] | null,
@@ -34,23 +34,16 @@ const DateField = memo<DateFieldProps>(({graphName, extra}) => {
     const maxDate = useMemo(() => dayjs(), []); //максимальная дата - текущее число
 
     return (
-        <>
-            <div className="flex gap-x-4">
-                <RangePicker
-                    onChange={onChange}
-                    className="w-[300px]"
-                    maxDate={maxDate}
-                />
-
-                {extra}
-            </div>
-
-            <Alert
-                message="Если период не указан, то автоматически отображаются данные за месяц от текущей даты"
-                type="info"
-                showIcon
+        <div className="flex gap-x-4">
+            <RangePicker
+                onChange={onChange}
+                className="w-[300px]"
+                maxDate={maxDate}
+                value={params.period}
             />
-        </>
+
+            {extra}
+        </div>
     );
 });
 

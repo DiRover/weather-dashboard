@@ -20,10 +20,7 @@ const graphName = 'linear-graph';
 export const Component = memo(() => {
     const graphParams = useAtomValue(graphAtom(graphName));
 
-    const currentParams = useMemo(
-        () => getParams(graphParams?.period?.[0], graphParams?.period?.[1]),
-        [graphParams],
-    );
+    const currentParams = useMemo(() => getParams(graphParams), [graphParams]);
 
     const {data} = useQuery<AxiosResponse<TemperatureDTO>>({
         queryKey: [GRAPH_URL, currentParams],

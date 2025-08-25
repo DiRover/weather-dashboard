@@ -35,10 +35,7 @@ export const Component = memo(() => {
     const graphParams = useAtomValue(graphAtom(graphName));
 
     // поле window в запрос не попадает
-    const currentParams = useMemo(
-        () => getParams(graphParams?.period?.[0], graphParams?.period?.[1]),
-        [graphParams],
-    );
+    const currentParams = useMemo(() => getParams(graphParams), [graphParams]);
 
     const {data} = useQuery<{data: TemperatureDTO}>({
         queryKey: [GRAPH_URL, currentParams],
@@ -55,7 +52,7 @@ export const Component = memo(() => {
 
     // вычисляем скользящую среднюю с окном
     const maTemps = useMemo(
-        () => movingAverage(temps, graphParams?.window),
+        () => movingAverage(temps, graphParams.window),
         [graphParams, temps],
     );
 
@@ -80,7 +77,7 @@ export const Component = memo(() => {
             legend: {
                 data: [
                     'Температура за период',
-                    `Скользящая средняя (${graphParams?.window ?? 3} дня)`,
+                    `Скользящая средняя (${graphParams.window ?? 3} дня)`,
                 ],
                 top: 10,
             },
@@ -109,7 +106,7 @@ export const Component = memo(() => {
                     itemStyle: {color: '#5470c6'},
                 },
                 {
-                    name: `Скользящая средняя (${graphParams?.window ?? 3} дня)`,
+                    name: `Скользящая средняя (${graphParams.window ?? 3} дня)`,
                     type: 'line',
                     data: maTemps,
                     smooth: true,

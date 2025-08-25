@@ -25,10 +25,7 @@ export const Component = memo(() => {
     const graphParams = useAtomValue(graphAtom(graphName));
 
     const currentParams = useMemo(() => {
-        const commonParams = getParams(
-            graphParams?.period?.[0],
-            graphParams?.period?.[1],
-        );
+        const commonParams = getParams(graphParams);
         const {daily, ...restCommonParams} = commonParams;
 
         return {...restCommonParams, ...temperatureHumidityAdditionalParams};

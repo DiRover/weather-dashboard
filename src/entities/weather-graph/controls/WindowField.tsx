@@ -4,7 +4,7 @@
 import type {InputNumberProps} from 'antd';
 
 import {InputNumber} from 'antd';
-import {useSetAtom} from 'jotai/index';
+import {useAtom} from 'jotai';
 import {memo, useCallback} from 'react';
 
 import {graphAtom} from '@/entities/atoms/graph.ts';
@@ -14,7 +14,7 @@ interface WindowFieldProps {
 }
 
 const WindowField = memo<WindowFieldProps>(({graphName}) => {
-    const setParams = useSetAtom(graphAtom(graphName));
+    const [params, setParams] = useAtom(graphAtom(graphName));
 
     const onChange = useCallback<
         Required<Pick<InputNumberProps, 'onChange'>>['onChange']
@@ -27,7 +27,14 @@ const WindowField = memo<WindowFieldProps>(({graphName}) => {
         [setParams],
     );
 
-    return <InputNumber min={1} max={7} defaultValue={3} onChange={onChange} />;
+    return (
+        <InputNumber
+            min={1}
+            max={7}
+            onChange={onChange}
+            value={params.window}
+        />
+    );
 });
 
 export default WindowField;
