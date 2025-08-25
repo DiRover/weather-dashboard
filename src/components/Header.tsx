@@ -6,7 +6,6 @@ import {memo, useCallback} from 'react';
 import {useNavigate} from 'react-router';
 
 import BackButton from '@/components/BackButton.tsx';
-import DarkModeButton from '@/components/DarkModeButton.tsx';
 import {deleteToken} from '@/helpers/auth';
 
 //Заголовок
@@ -26,7 +25,6 @@ const Header = memo(() => {
             </div>
 
             <div className="flex items-center gap-2">
-                <DarkModeButton />
                 <Button onClick={handleLogout}>Выйти</Button>
             </div>
         </header>
