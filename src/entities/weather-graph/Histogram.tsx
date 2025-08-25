@@ -5,26 +5,29 @@ import type {AxiosResponse} from 'axios';
 
 import {useQuery} from '@tanstack/react-query';
 import {bin} from 'd3-array';
+import {useAtomValue} from 'jotai/index';
 import {memo, useMemo} from 'react';
 
 import type {TemperatureDTO} from '@/entities/weather-graph/type.ts';
 
+import {graphAtom} from '@/entities/atoms/graph.ts';
 import BaseChart from '@/entities/weather-graph/BaseChart.tsx';
+import DateField from '@/entities/weather-graph/controls/DateField.tsx';
+import {GRAPH_URL} from '@/entities/weather-graph/helpers/constants.ts';
+import {getParams} from '@/entities/weather-graph/helpers/getParams.ts';
 
-const params = {
-    latitude: 55.7522,
-    longitude: 37.6156,
-    start_date: '2025-07-01',
-    end_date: '2025-07-31',
-    daily: 'temperature_2m_mean',
-    timezone: 'auto',
-};
-
-const url = 'https://archive-api.open-meteo.com/v1/archive';
+const graphName = 'histogram';
 
 export const Component = memo(() => {
+    const graphParams = useAtomValue(graphAtom(graphName));
+
+    const currentParams = useMemo(
+        () => getParams(graphParams?.period?.[0], graphParams?.period?.[1]),
+        [graphParams],
+    );
+
     const {data} = useQuery<AxiosResponse<TemperatureDTO>>({
-        queryKey: [url, params],
+        queryKey: [GRAPH_URL, currentParams],
     });
 
     const {temps, tepUnit} = useMemo(
@@ -82,5 +85,11 @@ export const Component = memo(() => {
         [tepUnit, x, y],
     );
 
-    return <BaseChart options={options} />;
+    return (
+        <>
+            <DateField graphName={graphName} />
+
+            <BaseChart options={options} />
+        </>
+    );
 });
