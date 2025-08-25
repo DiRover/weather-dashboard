@@ -4,8 +4,9 @@ import type {WritableAtom} from 'jotai';
 import {atom} from 'jotai';
 import {atomFamily} from 'jotai/utils';
 
-interface GraphParams {
+export interface GraphParams {
     period?: [Dayjs | null, Dayjs | null] | null;
+    window?: string | number | null;
 }
 
 //создаю стор для хранения параметров для запросов графиков
@@ -17,7 +18,7 @@ export const graphAtom = atomFamily<
     string,
     WritableAtom<
         GraphParams | undefined,
-        [Partial<GraphParams> | null], //особенность типизации в jotai, Partial - потому что где-то есть параметр "окно"
+        [GraphParams | null], //особенность типизации в jotai, Partial - потому что где-то есть параметр "окно"
         unknown
     >
     //получаю из стора параметры для запроса по имени графика

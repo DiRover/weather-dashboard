@@ -2,35 +2,46 @@
  * Created by ROVENSKIY D.A. on 22.08.2025
  */
 import {useQuery} from '@tanstack/react-query';
+import {useAtomValue} from 'jotai/index';
 import {memo, useMemo} from 'react';
 
+import type {GraphParams} from '@/entities/atoms/graph.ts';
 import type {TemperatureDTO} from '@/entities/weather-graph/type.ts';
 
+import {graphAtom} from '@/entities/atoms/graph.ts';
 import BaseChart from '@/entities/weather-graph/BaseChart.tsx';
-
-const params = {
-    latitude: 55.7522,
-    longitude: 37.6156,
-    start_date: '2025-07-01',
-    end_date: '2025-07-08',
-    daily: 'temperature_2m_mean',
-    timezone: 'auto',
-};
-
-const url = 'https://archive-api.open-meteo.com/v1/archive';
+import DateField from '@/entities/weather-graph/controls/DateField.tsx';
+import WindowField from '@/entities/weather-graph/controls/WindowField.tsx';
+import {GRAPH_URL} from '@/entities/weather-graph/helpers/constants.ts';
+import {getParams} from '@/entities/weather-graph/helpers/getParams.ts';
 
 // утилита для скользящей средней
-function movingAverage(data: number[], windowSize: number) {
+function movingAverage(data: number[], windowSize?: GraphParams['window']) {
+    let window = windowSize;
+    if (typeof window !== 'number') {
+        //делаю всегда по умолчанию окно равным 3
+        window = 3;
+    }
     return data.map((_, i, arr) => {
-        const start = Math.max(0, i - windowSize + 1);
+        const start = Math.max(0, i - window + 1);
         const subset = arr.slice(start, i + 1);
         return subset.reduce((a, b) => a + b, 0) / subset.length;
     });
 }
 
+const graphName = 'moving-average';
+
 export const Component = memo(() => {
+    const graphParams = useAtomValue(graphAtom(graphName));
+
+    // поле window в запрос не попадает
+    const currentParams = useMemo(
+        () => getParams(graphParams?.period?.[0], graphParams?.period?.[1]),
+        [graphParams],
+    );
+
     const {data} = useQuery<{data: TemperatureDTO}>({
-        queryKey: [url, params],
+        queryKey: [GRAPH_URL, currentParams],
     });
 
     const {dates, temps, tempUnit} = useMemo(
@@ -42,8 +53,11 @@ export const Component = memo(() => {
         [data],
     );
 
-    // вычисляем скользящую среднюю с окном 3 дня
-    const maTemps = useMemo(() => movingAverage(temps, 3), [temps]);
+    // вычисляем скользящую среднюю с окном
+    const maTemps = useMemo(
+        () => movingAverage(temps, graphParams?.window),
+        [graphParams, temps],
+    );
 
     const options = useMemo(
         () => ({
@@ -64,7 +78,10 @@ export const Component = memo(() => {
                         .join(''),
             },
             legend: {
-                data: ['Температура за 7 дней', 'Скользящая средняя (3 дня)'],
+                data: [
+                    'Температура за период',
+                    `Скользящая средняя (${graphParams?.window ?? 3} дня)`,
+                ],
                 top: 10,
             },
             grid: {left: 40, right: 16, top: 50, bottom: 40},
@@ -82,7 +99,7 @@ export const Component = memo(() => {
             },
             series: [
                 {
-                    name: 'Температура за 7 дней',
+                    name: 'Температура за период',
                     type: 'line',
                     data: temps,
                     smooth: true,
@@ -92,7 +109,7 @@ export const Component = memo(() => {
                     itemStyle: {color: '#5470c6'},
                 },
                 {
-                    name: 'Скользящая средняя (3 дня)',
+                    name: `Скользящая средняя (${graphParams?.window ?? 3} дня)`,
                     type: 'line',
                     data: maTemps,
                     smooth: true,
@@ -102,8 +119,17 @@ export const Component = memo(() => {
                 },
             ],
         }),
-        [dates, temps, maTemps, tempUnit],
+        [graphParams, dates, tempUnit, temps, maTemps],
     );
 
-    return <BaseChart options={options} />;
+    return (
+        <>
+            <DateField
+                graphName={graphName}
+                extra={<WindowField graphName={graphName} />}
+            />
+
+            <BaseChart options={options} />
+        </>
+    );
 });
