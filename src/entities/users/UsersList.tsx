@@ -18,6 +18,7 @@ import {adminAccess} from '@/routes/access.ts';
 
 export function loader() {
     const token = getToken();
+    //ещё одна проверка, чтобы ниже не проверять
     if (!token) {
         throw redirect('/login');
     }
