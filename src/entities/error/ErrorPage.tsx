@@ -8,6 +8,8 @@ import {useNavigate, useRouteError, isRouteErrorResponse} from 'react-router';
 
 const {Title} = Typography;
 
+//страница для отображения ошибок в роутах
+
 const ErrorPage = memo(() => {
     const navigate = useNavigate();
     const error = useRouteError();

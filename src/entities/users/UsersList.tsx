@@ -31,6 +31,8 @@ export function loader() {
 
 const {Title} = Typography;
 
+//список пользователей
+
 export const Component = memo(() => {
     const [users, setUsers] = useState<UserDTO[]>(() => getUsers());
     const dark = useAtomValue(atomDarkMode);

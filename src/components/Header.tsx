@@ -9,6 +9,8 @@ import BackButton from '@/components/BackButton.tsx';
 import DarkModeButton from '@/components/DarkModeButton.tsx';
 import {deleteToken} from '@/helpers/auth';
 
+//Заголовок
+
 const Header = memo(() => {
     const navigate = useNavigate();
 

@@ -9,6 +9,8 @@ import {memo, useCallback} from 'react';
 
 import {graphAtom} from '@/entities/atoms/graph.ts';
 
+//компонент для ввода "окна" для графика со скользящей средней
+
 interface WindowFieldProps {
     graphName: string;
 }

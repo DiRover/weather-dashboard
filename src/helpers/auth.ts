@@ -1,5 +1,7 @@
 import type {Token} from '@/helpers/types.ts';
 
+//авторизация
+
 const TOKEN_KEY = 'auth_token';
 
 export function setToken(token: Token): void {

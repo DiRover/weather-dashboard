@@ -10,6 +10,9 @@ import {weatherGraphSection} from '@/routes/weatherGraphSection.tsx';
 
 const {Title} = Typography;
 
+//Общая страница
+//Навигация по типам графиков
+
 export const Component = memo(() => {
     return (
         <div className="flex w-full flex-auto flex-col gap-y-4 pt-4">

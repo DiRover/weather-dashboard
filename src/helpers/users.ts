@@ -1,5 +1,7 @@
 import type {UserDTO, UserFormValues} from '@/helpers/types.ts';
 
+//хранения списка юзеров в localStorage
+
 const USERS_KEY = 'users';
 
 export function getUsers(): UserDTO[] {

@@ -6,6 +6,8 @@ import {Button} from 'antd';
 import {memo, useCallback, useMemo} from 'react';
 import {useLocation, useNavigate} from 'react-router';
 
+//кнопка возврата на главную страницу
+
 const BackButton = memo(() => {
     const navigate = useNavigate();
     const {pathname} = useLocation();
@@ -13,6 +15,8 @@ const BackButton = memo(() => {
     const handleGoBack = useCallback(() => {
         navigate('/');
     }, [navigate]);
+
+    //не показываем её, если находимся на самом верху роутов, на странице логирования
 
     const canGoBack = useMemo(() => pathname !== '/', [pathname]);
 

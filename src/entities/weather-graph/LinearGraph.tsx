@@ -17,15 +17,21 @@ import {getParams} from '@/entities/weather-graph/helpers/getParams.ts';
 
 const graphName = 'linear-graph';
 
+//Компонент для отображения Линейного графика
+
 export const Component = memo(() => {
+    //беру параметры из стора
     const graphParams = useAtomValue(graphAtom(graphName));
 
+    //преобразую их для отправки в запросе
     const currentParams = useMemo(() => getParams(graphParams), [graphParams]);
 
+    //сам запрос
     const {data} = useQuery<AxiosResponse<TemperatureDTO>>({
         queryKey: [GRAPH_URL, currentParams],
     });
 
+    //обрабатываю ответ
     const {dates, temps, tepUnit} = useMemo(
         () => ({
             dates: data?.data.daily.time ?? [],

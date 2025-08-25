@@ -5,6 +5,8 @@ import type {PropsWithChildren} from 'react';
 
 import {memo} from 'react';
 
+//общий компонент для всех страниц
+
 const PageWrapper = memo<PropsWithChildren>(({children}) => (
     <div className="flex min-h-screen w-full flex-col items-center p-4">
         {children}

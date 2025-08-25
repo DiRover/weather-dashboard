@@ -5,6 +5,8 @@ import dayjs from 'dayjs';
 import {atom} from 'jotai';
 import {atomFamily} from 'jotai/utils';
 
+//атом для работы с периодами в графиках, хранит, передаёт в запрос
+
 export interface GraphParams {
     period?: [Dayjs | null, Dayjs | null] | null;
     window?: string | number | null;
@@ -20,12 +22,15 @@ const oneMonthAgo = dayjs().subtract(1, 'month');
 // сегодняшняя дата
 const today = dayjs();
 
+//общие для всех графиков параметры запроса
 const defaultCommonParams = {
     latitude: 55.7522,
     longitude: 37.6156,
     daily: 'temperature_2m_mean',
     timezone: 'auto',
 };
+
+//добавляю к общим параметрам высчитанный период и "окно" (окно для графика со скользящей средней)
 
 const defaultParams: GraphParams = {
     ...defaultCommonParams,

@@ -28,15 +28,19 @@ echarts.use([
     LabelLayout,
 ]);
 
+//общий компонент для всех типов графиков
+
 const BaseChart = memo<BaseChartProps>(({options}) => {
     const container = useRef<HTMLDivElement | null>(null);
     const chart = useRef<ReturnType<typeof echarts.init>>(null);
 
     useEffect(() => {
+        //создаём график, если он не был создан
         if (container.current && !chart.current) {
             chart.current = echarts.init(container.current);
         }
 
+        //удаляем график при размонтировании
         return () => {
             if (chart.current) {
                 chart.current.dispose();
@@ -47,11 +51,13 @@ const BaseChart = memo<BaseChartProps>(({options}) => {
     }, []);
 
     useEffect(() => {
+        //даю графика данные для отображения, если он есть
         if (chart.current) {
             chart.current.setOption(options);
         }
     }, [options]);
 
+    //контейнер для графика
     return <div ref={container} className="h-96 w-full" />;
 });
 

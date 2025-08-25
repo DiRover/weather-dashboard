@@ -13,6 +13,7 @@ import {RoleName} from '@/helpers/types.ts';
 import {getUsers} from '@/helpers/users.ts';
 
 export function loader() {
+    //если вход уже был, перенаправляю в само приложение
     if (getToken()) {
         throw redirect('/');
     }

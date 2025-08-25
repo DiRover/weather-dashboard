@@ -13,6 +13,8 @@ interface NavigationProps {
     routes: RouteFull[];
 }
 
+//Компонент навигации, используется в графиках
+
 const Navigation = memo<NavigationProps>(({routes}) => {
     const dark = useAtomValue(atomDarkMode);
     return (

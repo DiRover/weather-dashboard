@@ -16,6 +16,8 @@ interface UserFormProps {
 
 const {Password} = Input;
 
+//форма создания нового пользователя, валидации по типам символов для полей не делал
+
 const UserForm = memo(({onCreated}: UserFormProps) => {
     const [form] = Form.useForm();
 

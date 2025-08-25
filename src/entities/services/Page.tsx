@@ -12,7 +12,7 @@ import {routesSections} from '@/routes/routes.tsx';
 
 const {Title} = Typography;
 
-//компонент для отображения сервисов
+//компонент для отображения доступных сервисов
 
 export const Component = memo(() => {
     const token = getToken();

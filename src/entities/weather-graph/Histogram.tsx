@@ -18,15 +18,21 @@ import {getParams} from '@/entities/weather-graph/helpers/getParams.ts';
 
 const graphName = 'histogram';
 
+//Компонент для отображения Гистограммы
+
 export const Component = memo(() => {
+    //беру параметры из стора
     const graphParams = useAtomValue(graphAtom(graphName));
 
+    //преобразую их для отправки в запросе
     const currentParams = useMemo(() => getParams(graphParams), [graphParams]);
 
+    //сам запрос
     const {data} = useQuery<AxiosResponse<TemperatureDTO>>({
         queryKey: [GRAPH_URL, currentParams],
     });
 
+    //обрабатываю ответ
     const {temps, tepUnit} = useMemo(
         () => ({
             temps: data?.data.daily.temperature_2m_mean ?? [],
@@ -51,7 +57,7 @@ export const Component = memo(() => {
         const x = bars.map(
             bin => `${bin.x0?.toFixed(0)}–${bin.x1?.toFixed(0)}`, //просто округляю значения температуры для лэйбла
         );
-        const y = bars.map(bin => bin.length);
+        const y = bars.map(bin => bin.length); //достаю значения для баров
 
         return {x, y};
     }, [temps]);

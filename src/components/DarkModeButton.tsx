@@ -9,10 +9,13 @@ import {memo, useCallback, useEffect} from 'react';
 
 import {atomDarkMode} from '@/entities/atoms/darkMode';
 
+//кнопка переключения тёмного/светлого режимов
+
 const DarkModeButton = memo(() => {
     const [dark, setDark] = useAtom(atomDarkMode);
 
     useEffect(() => {
+        //технология тёмного режима из tailwind
         const rootElem = document.getElementById('root');
         if (rootElem) {
             if (dark) {

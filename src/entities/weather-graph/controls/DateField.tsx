@@ -11,6 +11,8 @@ import {memo, useCallback, useMemo} from 'react';
 
 import {graphAtom} from '@/entities/atoms/graph.ts';
 
+//Компонент для ввода периода для  данных, которые будут отображены
+
 interface DateFieldProps {
     graphName: string;
     extra?: ReactNode;
@@ -31,7 +33,7 @@ const DateField = memo<DateFieldProps>(({graphName, extra}) => {
         [setParams],
     );
 
-    const maxDate = useMemo(() => dayjs(), []); //максимальная дата - текущее число
+    const maxDate = useMemo(() => dayjs(), []); //ограничение периода, максимальная дата - текущее число
 
     return (
         <div className="flex gap-x-4">

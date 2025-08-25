@@ -31,16 +31,22 @@ function movingAverage(data: number[], windowSize?: GraphParams['window']) {
 
 const graphName = 'moving-average';
 
+//Компонент для отображения Графика со скользящей средней
+
 export const Component = memo(() => {
+    //беру параметры из стора
     const graphParams = useAtomValue(graphAtom(graphName));
 
+    //преобразую их для отправки в запросе
     // поле window в запрос не попадает
     const currentParams = useMemo(() => getParams(graphParams), [graphParams]);
 
+    //сам запрос
     const {data} = useQuery<{data: TemperatureDTO}>({
         queryKey: [GRAPH_URL, currentParams],
     });
 
+    //обрабатываю ответ
     const {dates, temps, tempUnit} = useMemo(
         () => ({
             dates: data?.data.daily.time ?? [],

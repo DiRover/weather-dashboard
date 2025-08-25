@@ -21,20 +21,27 @@ const temperatureHumidityAdditionalParams = {
 
 const graphName = 'temperature-humidity';
 
+//Компонент для отображения совмещённого графика температуры и влажности
+
 export const Component = memo(() => {
+    //беру параметры из стора
     const graphParams = useAtomValue(graphAtom(graphName));
 
+    //преобразую их для отправки в запросе
     const currentParams = useMemo(() => {
         const commonParams = getParams(graphParams);
         const {daily, ...restCommonParams} = commonParams;
 
+        //запрос для совмещённых данных отличается от других запросов, надо добавить ['relative_humidity_2m', 'temperature_2m']
         return {...restCommonParams, ...temperatureHumidityAdditionalParams};
     }, [graphParams]);
 
+    //сам запрос
     const {data} = useQuery<AxiosResponse<TemperatureAndHumidityDTO>>({
         queryKey: [GRAPH_URL, currentParams],
     });
 
+    //обрабатываю ответ
     const {dates, temps, tepUnit, humidity, humidityUnit} = useMemo(
         () => ({
             dates: data?.data.hourly.time ?? [],
