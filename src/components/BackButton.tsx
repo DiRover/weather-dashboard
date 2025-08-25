@@ -11,7 +11,7 @@ const BackButton = memo(() => {
     const {pathname} = useLocation();
 
     const handleGoBack = useCallback(() => {
-        navigate(-1);
+        navigate('/');
     }, [navigate]);
 
     const canGoBack = useMemo(() => pathname !== '/', [pathname]);
