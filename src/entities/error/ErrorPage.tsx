@@ -3,14 +3,18 @@
  */
 
 import {Button, Typography} from 'antd';
+import {useAtomValue} from 'jotai/index';
 import {memo, useCallback, useMemo} from 'react';
 import {useNavigate, useRouteError, isRouteErrorResponse} from 'react-router';
+
+import {atomDarkMode} from '@/entities/atoms/darkMode.ts';
 
 const {Title} = Typography;
 
 //страница для отображения ошибок в роутах
 
 const ErrorPage = memo(() => {
+    const dark = useAtomValue(atomDarkMode);
     const navigate = useNavigate();
     const error = useRouteError();
 
@@ -57,7 +61,10 @@ const ErrorPage = memo(() => {
 
     return (
         <div className="flex min-h-screen flex-col items-center justify-center gap-4 p-4">
-            <Title level={2} className="text-center">
+            <Title
+                level={3}
+                className={`place-self-start ${dark ? '!text-gray-100' : ''}`}
+            >
                 {errorObject.errorMessage}
             </Title>
 

@@ -2,12 +2,14 @@
  * Created by ROVENSKIY D.A. on 20.08.2025
  */
 import {Button, Form, Input, Typography, notification} from 'antd';
+import {useAtomValue} from 'jotai/index';
 import {memo, useCallback} from 'react';
 import {useNavigate} from 'react-router';
 import {redirect} from 'react-router';
 
 import type {UserDTO} from '@/helpers/types.ts';
 
+import {atomDarkMode} from '@/entities/atoms/darkMode.ts';
 import {getToken, setToken} from '@/helpers/auth';
 import {RoleName} from '@/helpers/types.ts';
 import {getUsers} from '@/helpers/users.ts';
@@ -24,6 +26,7 @@ const {Item} = Form;
 const {Title} = Typography;
 
 export const Component = memo(() => {
+    const dark = useAtomValue(atomDarkMode);
     const navigate = useNavigate();
 
     const handleLogin = useCallback(
@@ -64,7 +67,12 @@ export const Component = memo(() => {
 
     return (
         <div className="flex min-h-screen w-1/5 flex-col place-content-center">
-            <Title level={3}>Вход</Title>
+            <Title
+                level={3}
+                className={`place-self-start ${dark ? '!text-gray-100' : ''}`}
+            >
+                Вход
+            </Title>
 
             <Form
                 layout="vertical"
