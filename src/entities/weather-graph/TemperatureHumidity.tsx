@@ -4,26 +4,38 @@
 import type {AxiosResponse} from 'axios';
 
 import {useQuery} from '@tanstack/react-query';
+import {useAtomValue} from 'jotai/index';
 import {memo, useMemo} from 'react';
 
 import type {TemperatureAndHumidityDTO} from '@/entities/weather-graph/type.ts';
 
+import {graphAtom} from '@/entities/atoms/graph.ts';
 import BaseChart from '@/entities/weather-graph/BaseChart.tsx';
+import DateField from '@/entities/weather-graph/controls/DateField.tsx';
+import {GRAPH_URL} from '@/entities/weather-graph/helpers/constants.ts';
+import {getParams} from '@/entities/weather-graph/helpers/getParams.ts';
 
-const params = {
-    latitude: 55.7522,
-    longitude: 37.6156,
-    start_date: '2025-08-01',
-    end_date: '2025-08-23',
+const temperatureHumidityAdditionalParams = {
     hourly: ['relative_humidity_2m', 'temperature_2m'],
-    timezone: 'auto',
 };
 
-const url = 'https://archive-api.open-meteo.com/v1/archive';
+const graphName = 'temperature-humidity';
 
 export const Component = memo(() => {
+    const graphParams = useAtomValue(graphAtom(graphName));
+
+    const currentParams = useMemo(() => {
+        const commonParams = getParams(
+            graphParams?.period?.[0],
+            graphParams?.period?.[1],
+        );
+        const {daily, ...restCommonParams} = commonParams;
+
+        return {...restCommonParams, ...temperatureHumidityAdditionalParams};
+    }, [graphParams]);
+
     const {data} = useQuery<AxiosResponse<TemperatureAndHumidityDTO>>({
-        queryKey: [url, params],
+        queryKey: [GRAPH_URL, currentParams],
     });
 
     const {dates, temps, tepUnit, humidity, humidityUnit} = useMemo(
@@ -99,5 +111,11 @@ export const Component = memo(() => {
         [dates, temps, tepUnit, humidity, humidityUnit],
     );
 
-    return <BaseChart options={options} />;
+    return (
+        <>
+            <DateField graphName={graphName} />
+
+            <BaseChart options={options} />
+        </>
+    );
 });
