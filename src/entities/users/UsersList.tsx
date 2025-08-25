@@ -4,11 +4,13 @@
 import type {ColumnsType} from 'antd/es/table';
 
 import {Button, Modal, Space, Table, Typography} from 'antd';
+import {useAtomValue} from 'jotai/index';
 import {memo, useCallback, useMemo, useState} from 'react';
 import {redirect} from 'react-router';
 
 import type {UserDTO} from '@/helpers/types.ts';
 
+import {atomDarkMode} from '@/entities/atoms/darkMode.ts';
 import UserForm from '@/entities/users/UserForm.tsx';
 import {getToken} from '@/helpers/auth';
 import {deleteUser, getUsers} from '@/helpers/users.ts';
@@ -31,6 +33,7 @@ const {Title} = Typography;
 
 export const Component = memo(() => {
     const [users, setUsers] = useState<UserDTO[]>(() => getUsers());
+    const dark = useAtomValue(atomDarkMode);
 
     const refreshUsers = useCallback(() => {
         setUsers(getUsers());
@@ -68,6 +71,8 @@ export const Component = memo(() => {
                             onClick={() => {
                                 handleDelete(record);
                             }}
+                            //сохраняю цвета для тёмного режима
+                            className="!border-red-600 !bg-white !text-red-600"
                         >
                             Удалить
                         </Button>
@@ -80,7 +85,10 @@ export const Component = memo(() => {
 
     return (
         <>
-            <Title level={3} className="self-start">
+            <Title
+                level={3}
+                className={`place-self-start ${dark ? '!text-gray-100' : ''}`}
+            >
                 Пользователи
             </Title>
 

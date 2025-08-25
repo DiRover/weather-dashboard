@@ -3,3 +3,75 @@
 html, body, #root {
     height: 100%;
 }
+
+.dark {
+    @apply bg-black text-white;
+}
+
+.dark #root {
+    @apply bg-black;
+}
+
+.dark * {
+    @apply bg-inherit text-inherit;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .ant-layout {
+    @apply bg-black;
+}
+
+.dark .ant-layout-header {
+    @apply bg-gray-900 border-b border-gray-800;
+}
+
+.dark .ant-card {
+    @apply bg-gray-900 border-gray-800;
+}
+
+.dark .ant-btn:not([type='primary']) {
+    @apply bg-gray-800 border-gray-700 text-white;
+}
+
+.dark .ant-input,
+.dark .ant-select-selector,
+.dark .ant-picker {
+    @apply bg-gray-800 border-gray-700 text-white;
+}
+
+/* Dark mode styles for Ant Design components */
+.dark .ant-form-item {
+    @apply text-white;
+}
+
+.dark .ant-form-item-label > label {
+    @apply text-gray-200;
+}
+
+.dark .ant-form-item-explain {
+    @apply text-red-400;
+}
+
+.dark .ant-input,
+.dark .ant-input-affix-wrapper,
+.dark .ant-input-password,
+.dark .ant-select-selector,
+.dark .ant-picker {
+    @apply bg-gray-800 border-gray-700 text-white placeholder-gray-400;
+}
+
+.dark .ant-input:focus,
+.dark .ant-input-affix-wrapper:focus,
+.dark .ant-input-password:focus,
+.dark .ant-select-focused .ant-select-selector,
+.dark .ant-picker-focused {
+    @apply border-blue-500 ring-blue-500;
+}
+
+.dark .ant-btn-primary {
+    @apply bg-blue-700 border-blue-700 text-white hover:bg-blue-600;
+}
+
+.dark .ant-btn:not(.ant-btn-primary) {
+    @apply bg-gray-800 border-gray-700 text-white hover:bg-gray-700 hover:border-gray-600;
+}

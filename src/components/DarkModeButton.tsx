@@ -30,10 +30,12 @@ const DarkModeButton = memo(() => {
     return (
         <Button
             icon={
-                dark ? <Sun className="w-full" /> : <Moon className="w-full" />
+                dark ? (
+                    <Sun className="h-5 w-5" />
+                ) : (
+                    <Moon className="h-5 w-5" />
+                )
             }
-            className="self-end"
-            size="large"
             type="text"
             onClick={onModeChang}
         />

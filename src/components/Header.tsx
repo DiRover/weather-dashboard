@@ -19,7 +19,9 @@ const Header = memo(() => {
 
     return (
         <header className="flex h-12 w-full items-center justify-between border-b border-gray-200 px-4 pb-4">
-            <BackButton />
+            <div className="flex-1">
+                <BackButton />
+            </div>
 
             <div className="flex items-center gap-2">
                 <DarkModeButton />
